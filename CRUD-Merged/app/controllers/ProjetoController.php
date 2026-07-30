@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\core\Controller;
 use app\helpers\Validador;
 use app\models\Projeto;
+use app\repositories\ProjetoRepository;
 use app\services\ProjetoService;
 
 class ProjetoController extends Controller{
@@ -22,39 +23,26 @@ class ProjetoController extends Controller{
     }
 
 
-    
-    public function editar(){
+    public function index(): void {
+        $this->view('projetos/home');
+    }
+
+    public function cadastrar(): void {
+        (new ProjetoRepository())->getTabelasByFk_banco(1);
+        $this->view("projetos/projeto_create");
+    }
+
+    public function editar(): void {
         
         $data = [];
-        $id_projeto = $_REQUEST['id_projeto'];
+        $id_projeto = $_POST['id_projeto'];
         $proj = $this->projetoService->getById($id_projeto);
-        $proj ? null : header(URL_BASE);
         $nome = $proj['nome_projeto'];
 
 
         $data['nome'] = $nome;
-        $data['id'] = $id_projeto;
         $this->view("projetos/projeto_edit",$data);
 
-    }
-
-    public function editBools(){
-        $validador = new Validador();
-        $nome = $_POST['nome'];
-        $id = $_POST['id'];
-        $proj = $this->projetoService->getById($id);
-        $proj ? null : header(URL_BASE);
-
-        $data['nome'] = $nome;
-        $validador->obrigatorio('nome',$nome);
-        if($validador->temErros())header(URL_BASE);
-
-        $this->view("projetos/projeto_bools",$data);
-    }
-
-    public function cadastrar(){
-
-        $this->view("projetos/projeto_create");
     }
 
     public function bools(){
@@ -65,12 +53,19 @@ class ProjetoController extends Controller{
         $user   = $_POST['user'];
         $pass   = $_POST['pass'];
         $banco  = $_POST['mvc-banco'];
-        $this->obrigatorios($validador,$nome,$server,$user,$pass,$banco);
-        $data = ["nome"=>$nome,"server"=>$server,"user"=>$user,"pass"=>$pass,'banco'=>$banco];
+        $this->createObrigatorios($validador,$nome,$server,$user,$pass,$banco);
+        $data =["nome"=>$nome,"server"=>$server,"user"=>$user,"pass"=>$pass,'banco'=>$banco];
         // print_r($_POST);
         $this->view("projetos/projeto_bools",$data);
     }
 
+    public function editBools(){
+        $validador = new Validador();
+        $nome = $_POST['nome'];
+
+        $validador->obrigatorio('nome',$nome);
+        if($validador->temErros())$this->view("");
+    }
 
     public function criar(){
         // var_dump($_POST);
@@ -86,7 +81,7 @@ class ProjetoController extends Controller{
                 $options[substr($key,4)] = (int)$value;
             }
         }
-        $this->obrigatorios($validador,$nome,$server,$user,$pass,$banco);
+        $this->createObrigatorios($validador,$nome,$server,$user,$pass,$banco);
         
         $projeto = new Projeto(1,1,null,$nome,date("Y-m-d H:i:s"),$options,null);
 
@@ -98,7 +93,7 @@ class ProjetoController extends Controller{
         // $this->view("projetos/projeto_create");
     }
 
-    private function obrigatorios(Validador $validador, $nome,$server,$user,$pass,$banco){
+    private function createObrigatorios(Validador $validador, $nome,$server,$user,$pass,$banco){
         $validador->obrigatorio('nome',$nome);
         $validador->obrigatorio('server',$server);
         $validador->obrigatorio('user',$user);

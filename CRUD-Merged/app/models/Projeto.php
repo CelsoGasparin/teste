@@ -33,11 +33,6 @@ class Projeto{
     }
 
 
-    public function opts(){
-        return [$this->comentarios ? "" : null];
-    }
-
-
     // GETTERS
     public function getId_projeto(){
         return $this->id_projeto;

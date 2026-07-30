@@ -22,11 +22,11 @@ class ProjetoRepository{
     }
 
     public function getById(int $id){
-        $sql = "SELECT nome_projeto,comentarios,views FROM projeto WHERE id_projeto = ?;";
+        $sql = "SELECT * FROM projeto WHERE id_projeto = ?;";
         $stm = $this->conn->prepare($sql);
         $stm->execute([$id]);
 
-        return $stm->fetch() ?? null;
+        return $stm->fetch();
     }
 
     
@@ -43,6 +43,23 @@ class ProjetoRepository{
         $projeto->getComentarios() ? 1 : 0 ,
         $projeto->getViews() ? 1 : 0,
         null];
+    }
+
+
+    public function getTabelasByFk_banco($id_banco){
+        $sql = "SELECT tabela.* FROM tabela WHERE tabela.fk_banco = ?";
+        $stm = $this->conn->prepare($sql);
+        $stm->execute([$id_banco]);
+        return $stm->fetchAll(PDO::FETCH_NUM);
+    }
+
+    public function getAtributos($nomeTabela){
+        $validTable = preg_match('/^[a-zA-Z0-9_]+$/',$nomeTabela) ? $nomeTabela : die('Invalid table name');
+        $sql = "show columns from `$validTable`";
+        $stm = $this->conn->prepare($sql);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+        
     }
 
     public function getDatabases($dsn,$user,$pass){

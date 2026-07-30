@@ -206,7 +206,7 @@
                 
             </div>
             <div class="btn-row">
-                <button class="btn btn-primary" ><?= isset($id) ? "PORRA" : "Gerar Projeto" ?></button>
+                <button class="btn btn-primary" >Gerar Projeto</button>
             </div>
             </div>
         </div>

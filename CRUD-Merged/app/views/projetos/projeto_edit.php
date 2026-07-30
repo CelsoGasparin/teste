@@ -179,9 +179,8 @@
 <div class="page-header">
     <h1 class="page-title">Editar Projeto</h1>
 </div>
-<form action="/projetos/editar/opcoes" method="POST">
+<form action="/projetos/cadastrar/opcoes" method="POST">
     <div class="form-container">
-        <input type="hidden" value="<?= $id ?? '' ?>" name="id" id="id">
         <div id="mvc-s1">
         <div class="card">
         <div class="card-title"><span class="step-badge">1</span> Editar Projeto</div>

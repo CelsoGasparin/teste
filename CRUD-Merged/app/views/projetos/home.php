@@ -16,7 +16,7 @@
     </main>
     <div class="home-container">
         <p>oioio</p>
-
+        <?php print_r($_SESSION) ?>
     </div>
 </div>
 </body>

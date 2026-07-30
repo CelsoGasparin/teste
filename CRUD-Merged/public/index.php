@@ -15,6 +15,13 @@ $router->get('/', 'UsuarioController@index');
 $router->get('/login', 'AutenticacaoController@login');
 $router->post('/logar', 'AutenticacaoController@logar');
 $router->get('/logout', 'AutenticacaoController@logout');
+$router->get('/cadastro', 'AutenticacaoController@cadastro');
+$router->post('/cadastro/salvar', 'AutenticacaoController@salvarCadastro');
+$router->get('/recuperar-senha', 'AutenticacaoController@recuperarSenha');
+$router->post('/recuperar-senha', 'AutenticacaoController@solicitarRecuperacao');
+$router->get('/redefinir-senha', 'AutenticacaoController@redefinirSenhaForm');
+$router->post('/redefinir-senha', 'AutenticacaoController@salvarNovaSenha');
+$router->get('/explorar', 'AutenticacaoController@explorar');
 
 $router->get('/usuarios', 'UsuarioController@index');
 $router->get('/usuarios/excluir', 'UsuarioController@excluir');
@@ -31,8 +38,10 @@ $router->get("/projetos/cadastrar","ProjetoController@cadastrar");
 $router->post("/projetos/cadastrar/opcoes","ProjetoController@bools");
 $router->post("/projetos/criar","ProjetoController@criar");
 $router->post("/projetos/editar","ProjetoController@editar");
-$router->get("/projetos/editar","ProjetoController@editar");
-$router->post("/projetos/editar/opcoes","ProjetoController@editBools");
+$router->post("/projeto/editar/opcoes","ProjetoController@editBools");
 $router->post("/projetos/getDatabases","ProjetoController@getDatabases");
+
+
+
 
 $router->run();

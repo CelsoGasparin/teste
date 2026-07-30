@@ -224,10 +224,10 @@
     </div>
 </form>
 
-    <form action="/projetos/editar" method="GET">
+    <!-- <form action="/projetos/editar" method="POST">
         <input type="hidden" value="1" name="id_projeto" id="id_projeto">
         <button>Editar projeto de id numero 1(e um botao so pra mostrar a funcao de editar)</button>
-    </form>
+    </form> -->
 </main>
 </div>
 
