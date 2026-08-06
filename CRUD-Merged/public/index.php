@@ -42,6 +42,6 @@ $router->post("/projeto/editar/opcoes","ProjetoController@editBools");
 $router->post("/projetos/getDatabases","ProjetoController@getDatabases");
 
 
-
+$router->get("/teste","ProjetoController@teste");
 
 $router->run();

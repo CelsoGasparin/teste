@@ -1,13 +1,13 @@
 <?php
-namespace app\model;
+namespace app\models;
 
 use app\repositories\ProjetoRepository;
 use Throwable;
 
 class Tabela{
-    public readonly string $nomeTabela;
-    public readonly string $nomeTabelaUC;
-    public readonly ?array $attributes;
+    public readonly string $nome_tabela;
+    public readonly string $nome_tabelaUC;
+    public readonly ?array $atributos;
     private ?array $attInputs;
 
 
@@ -15,12 +15,12 @@ class Tabela{
     public function __construct($nomeTabela){
         try{
             $projetoRepository = new ProjetoRepository();
-            $this->nomeTabela = $nomeTabela;
-            $this->nomeTabelaUC = ucfirst($this->nomeTabela);
-            $this->attributes = $projetoRepository->getAtributos($this->nomeTabela);
+            $this->nome_tabela = $nomeTabela;
+            $this->nome_tabelaUC = ucfirst($this->nome_tabela);
+            $atributos = $projetoRepository->getAtributos($this->nome_tabela);
             $this->attInputs = [];
            
-            foreach($this->attributes as $att){
+            foreach($this->atributos as $att){
                 if($att->Key!='PRI')$this->attInputs[] = Tabela::inputs($att->Type,$att->Field);
             }
         }catch(Throwable $th){

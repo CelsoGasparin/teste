@@ -13,8 +13,8 @@ class ProjetoService{
     }
 
 
-    public function getDatabases($dsn,$user,$pass){
-        return $this->projetoRepository->getDatabases($dsn,$user,$pass);
+    public function getDatabases($dsn,$user,$pass,$option="DEFAULT"){
+        return $this->projetoRepository->getDatabases($dsn,$user,$pass,$option);
     }
 
     public function getById(int $id){   

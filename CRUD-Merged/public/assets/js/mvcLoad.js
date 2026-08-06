@@ -13,7 +13,6 @@ function carregarBanco(){
     xhr.open('POST',URL_BASE+url,true);
     xhr.onreadystatechange = function() {
         if(xhr.readyState==4){
-            console.log("oiasdoiosai")
             if(xhr.status==200){
                 // console.log("TESTSTSE");
                 document.getElementById("mvc-banco").innerHTML=xhr.responseText;

@@ -18,7 +18,7 @@ class Estrutura{
 
     public function __construct(){
         $this->conn = new ProjetoService();
-        $this->conn->getById(1);
+        
     }
 }
 

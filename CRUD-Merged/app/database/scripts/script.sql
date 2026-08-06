@@ -144,8 +144,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mvc_creator`.`atributo` (
   `id_atributo` INT NOT NULL AUTO_INCREMENT,
-  `fk_tabela` INT NULL DEFAULT NULL,
-  `fk_atributo` INT NULL,
+  `fk_tabela` INT NOT NULL,
+  `fk_atributo` INT DEFAULT NULL,
   `nome_atributo` VARCHAR(60) NOT NULL,
   `tipo` TINYTEXT NOT NULL,
   `PK` TINYINT NOT NULL,

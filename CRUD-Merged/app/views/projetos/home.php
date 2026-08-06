@@ -16,7 +16,7 @@
     </main>
     <div class="home-container">
         <p>oioio</p>
-        <?php print_r($_SESSION) ?>
+        <?php print_r($_SESSION); print gethostbyaddr($_SERVER['REMOTE_ADDR']);?>
     </div>
 </div>
 </body>

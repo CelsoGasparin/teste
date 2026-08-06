@@ -3,7 +3,9 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\helpers\Validador;
+use app\models\Tabela;
 use app\models\Projeto;
+
 use app\repositories\ProjetoRepository;
 use app\services\ProjetoService;
 
@@ -19,7 +21,7 @@ class ProjetoController extends Controller{
         $user   = trim($_POST['user']);
         $pass   = trim($_POST['pass']);
         $server = trim($_POST['server']);
-        echo $this->projetoService->getDatabases("mysql:host=$server",$user,$pass);
+        echo $this->projetoService->getDatabases("mysql:host=$server",$user,$pass,'DB_OPTIONS');
     }
 
 
@@ -27,8 +29,13 @@ class ProjetoController extends Controller{
         $this->view('projetos/home');
     }
 
+    public function teste(){
+        $tabela = new Tabela('pokemonilson');
+        print_r($tabela);
+    }
+
     public function cadastrar(): void {
-        (new ProjetoRepository())->getTabelasByFk_banco(1);
+        // (new ProjetoRepository())->getTabelasByFk_banco(1);
         $this->view("projetos/projeto_create");
     }
 
