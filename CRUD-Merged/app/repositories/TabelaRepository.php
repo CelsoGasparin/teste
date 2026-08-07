@@ -3,6 +3,7 @@ namespace app\repositories;
 
 use app\database\ConnectionFactory;
 use PDO;
+use ValueError;
 
 class TabelaRepository{
     private PDO $conn;
@@ -25,5 +26,12 @@ class TabelaRepository{
         $stm = $this->conn->prepare($sql);
         $stm->execute([$id_banco]);
         return $stm->fetchAll(PDO::FETCH_NUM);
+    }
+
+    public function getTabela($value,$param){
+        $sql = "SELECT * from tabela where ? = ?";       
+        $stm = $this->conn->prepare($sql);
+        $stm->execute([$param,$value]);
+        return $stm->fetch(PDO::FETCH_NUM); 
     }
 }

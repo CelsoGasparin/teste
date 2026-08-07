@@ -7,9 +7,12 @@ use app\models\Tabela;
 use app\models\Projeto;
 
 use app\repositories\ProjetoRepository;
+use app\tools\SchemaInspector;
 use app\services\ProjetoService;
+use app\services\TabelaService;
 
 class ProjetoController extends Controller{
+    
     private ProjetoService $projetoService;
 
     public function __construct(){
@@ -21,7 +24,7 @@ class ProjetoController extends Controller{
         $user   = trim($_POST['user']);
         $pass   = trim($_POST['pass']);
         $server = trim($_POST['server']);
-        echo $this->projetoService->getDatabases("mysql:host=$server",$user,$pass,'DB_OPTIONS');
+        echo (new SchemaInspector("mysql:host=$server",$user,$pass))->getDatabases('DB_OPTIONS');
     }
 
 
@@ -30,8 +33,13 @@ class ProjetoController extends Controller{
     }
 
     public function teste(){
-        $tabela = new Tabela('pokemonilson');
-        print_r($tabela);
+        $schema = new SchemaInspector("mysql:host=127.0.0.1;dbname=mvc_creator",'root','bancodedados');
+        $tabela = $schema->getTabelas();
+        $tabelaService = new TabelaService();
+        // print_r($tabela);
+        foreach($tabela as $key => $value){
+            print_r($schema->getAtributos($value[0]));
+        }
     }
 
     public function cadastrar(): void {

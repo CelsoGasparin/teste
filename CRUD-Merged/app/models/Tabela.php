@@ -68,7 +68,7 @@ class Tabela{
             break;
             
             default:
-                return"<p><b>Erro:o tipo de atributo $type não é suportado por essa joça(jossa é com ç ou com ss?)</b></p>";
+                return"<p><b>Erro:o tipo de atributo $type não foi reconhecido.</b></p>";
             break;
         }
     }   

@@ -2,6 +2,7 @@
 namespace app\repositories;
 
 use app\database\ConnectionFactory;
+use app\models\Atributo;
 use PDO;
 
 class AtributoRepository{
@@ -34,13 +35,5 @@ class AtributoRepository{
         
     }
 
-    private static function map($atributos){
-        $results = [];
-
-        foreach($atributos as $key=>$atributo){
-            
-
-
-        } 
-    }
+    
 }

@@ -73,7 +73,7 @@ class ProjetoRepository{
     }
 
     public function getDatabases($dsn,$user,$pass,$option){
-        $specialConn = ProjetoRepository::specialConn($dsn,$user,$pass);
+        $specialConn = ConnectionFactory::specialConn($dsn,$user,$pass);
         $sql = "SHOW DATABASES";
         $stm = $specialConn->prepare($sql);
         $stm->execute();
@@ -98,12 +98,5 @@ class ProjetoRepository{
 
 
 
-    private static function specialConn($dsn,$user,$pass){
-        // print $dsn;
-        $connection = new PDO($dsn, $user, $pass);
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-        return $connection;
-    }
+    
 }
