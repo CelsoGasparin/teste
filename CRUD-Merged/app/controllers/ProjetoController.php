@@ -35,9 +35,9 @@ class ProjetoController extends Controller{
     public function teste(){
         $host = '127.0.0.1:3306';
         $hostEporta = explode(':',$host);
-        $nome_banco = 'db_projeto_integrador';
+        $nome_banco = 'mvc_creator';
         $usuario_banco = 'root';
-        $senha_banco = '';
+        $senha_banco = 'bancodedados';
         $fk_usuario = $_SESSION['usuario_logado']->getIdUsuario();
         
         // SchemaInspector com o Banco Selecionado

@@ -41,12 +41,18 @@ class UsuarioController extends Controller {
     public function salvar(): void {
         $this->adminRequired();
 
+        // $dados = [
+        //     'nome' => $_POST['nome'] ?? '',
+        //     'email' => $_POST['email'] ?? '',
+        //     'senha' => $_POST['senha'] ?? '',
+        //     'usuario_banco' => $_POST['usuario_banco'] ?? '',
+        //     'servidor' => $_POST['servidor'] ?? '',
+        //     'tipo_perfil' => $_POST['tipo_perfil'] ?? '',
+        // ];
         $dados = [
             'nome' => $_POST['nome'] ?? '',
             'email' => $_POST['email'] ?? '',
             'senha' => $_POST['senha'] ?? '',
-            'usuario_banco' => $_POST['usuario_banco'] ?? '',
-            'servidor' => $_POST['servidor'] ?? '',
             'tipo_perfil' => $_POST['tipo_perfil'] ?? '',
         ];
 
