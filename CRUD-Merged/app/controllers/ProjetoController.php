@@ -5,8 +5,8 @@ use app\core\Controller;
 use app\helpers\Validador;
 use app\models\Tabela;
 use app\models\Projeto;
-
-use app\repositories\ProjetoRepository;
+use app\services\AtributoService;
+use app\services\BancoService;
 use app\tools\SchemaInspector;
 use app\services\ProjetoService;
 use app\services\TabelaService;
@@ -33,13 +33,38 @@ class ProjetoController extends Controller{
     }
 
     public function teste(){
-        $schema = new SchemaInspector("mysql:host=127.0.0.1;dbname=mvc_creator",'root','bancodedados');
-        $tabela = $schema->getTabelas();
+        $host = '127.0.0.1:3306';
+        $hostEporta = explode(':',$host);
+        $nome_banco = 'db_projeto_integrador';
+        $usuario_banco = 'root';
+        $senha_banco = '';
+        $fk_usuario = $_SESSION['usuario_logado']->getIdUsuario();
+        
+        // SchemaInspector com o Banco Selecionado
+        $schema = new SchemaInspector("mysql:host=$host;dbname=$nome_banco",$usuario_banco,$senha_banco);
+
+        // Insercao do Banco
+        $bancoService = new BancoService();
+        $bancoService->insert($fk_usuario,$nome_banco,$usuario_banco,$senha_banco,$hostEporta[0],$hostEporta[1]);
+        $bancoEspecifico = $bancoService->getBancoEspecifico($nome_banco,$usuario_banco,$fk_usuario);
+        // Insercao da Tabela e atributos
         $tabelaService = new TabelaService();
-        // print_r($tabela);
-        foreach($tabela as $key => $value){
-            print_r($schema->getAtributos($value[0]));
+        $tabelas = $schema->getTabelas();
+        
+        
+        $atributoService = new AtributoService();
+        foreach($tabelas as $key => $value){
+            $tabelaService->insert($value[0],$bancoEspecifico['id_banco']);
+            $tabelaEspecifica = $tabelaService->getTabelaEspecifica($value[0],$bancoEspecifico['id_banco']);
+            // print_r($schema->getAtributos($value[0]));
+            foreach($schema->getAtributos($value[0]) as $att){
+                $pk = $att['Key']=="PRI" ? 1 : 0;
+                $nn = $att['Null']=="NO" ? 1 : 0;
+                $atributoService->insert($tabelaEspecifica['id_tabela'],null,$att['Field'],$att['Type'],$pk,$nn,0,0);
+            }
         }
+        // print_r($tabelaService->getAllTabelas());
+        // print_r($tabelaService->getTabelasByFk_banco(3));
     }
 
     public function cadastrar(): void {

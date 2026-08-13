@@ -7,8 +7,8 @@ class Usuario {
     private string $nome;
     private string $email;
     private string $senhaUsuario;
-    private string $usuarioBanco;
-    private string $servidor;
+    // private string $usuarioBanco;
+    // private string $servidor;
     private string $tipoPerfil;
 
     public function __construct(
@@ -16,16 +16,16 @@ class Usuario {
         string $nome,
         string $email,
         string $senhaUsuario,
-        string $usuarioBanco,
-        string $servidor,
+        // string $usuarioBanco,
+        // string $servidor,
         string $tipoPerfil
     ) {
         $this->idUsuario    = $idUsuario;
         $this->nome         = $nome;
         $this->email        = $email;
         $this->senhaUsuario = $senhaUsuario;
-        $this->usuarioBanco = $usuarioBanco;
-        $this->servidor     = $servidor;
+        // $this->usuarioBanco = $usuarioBanco;
+        // $this->servidor     = $servidor;
         $this->tipoPerfil   = $tipoPerfil;
     }
 
@@ -45,26 +45,33 @@ class Usuario {
         return $this->senhaUsuario;
     }
 
-    public function getUsuarioBanco(): string {
-        return $this->usuarioBanco;
-    }
+    // public function getUsuarioBanco(): string {
+    //     return $this->usuarioBanco;
+    // }
 
-    public function getServidor(): string {
-        return $this->servidor;
-    }
+    // public function getServidor(): string {
+    //     return $this->servidor;
+    // }
 
     public function getTipoPerfil(): string {
         return $this->tipoPerfil;
     }
 
     public static function arrayParaObjeto(array $dados): self {
+        // return new self(
+        //     (int) $dados['id_usuario'],
+        //     $dados['nome'],
+        //     $dados['email'],
+        //     $dados['senha_usuario'],
+        //     $dados['usuario_banco'],
+        //     $dados['servidor'],
+        //     $dados['tipo_perfil']
+        // );
         return new self(
             (int) $dados['id_usuario'],
             $dados['nome'],
             $dados['email'],
             $dados['senha_usuario'],
-            $dados['usuario_banco'],
-            $dados['servidor'],
             $dados['tipo_perfil']
         );
     }

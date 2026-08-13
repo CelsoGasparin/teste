@@ -2,6 +2,7 @@
 namespace app\tools;
 
 use app\database\ConnectionFactory;
+use app\models\Atributo;
 use PDO;
 
 class SchemaInspector{
@@ -29,7 +30,7 @@ class SchemaInspector{
         $sql = "show columns from `$validTable`";
         $stm = $this->specialConn->prepare($sql);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_OBJ);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
         
     }
 
@@ -57,20 +58,5 @@ class SchemaInspector{
         }
     }
 
-    private static function mapAtributo($atributos){
-        $results = [];
-
-        foreach($atributos as $key=>$atributo){
-            $nome = $atributo->Field;
-            $tipo = $atributo->Type;
-            $pk   = $atributo->Key=="PRI";
-            $nn   = $atributo->null=="NO";
-            
-
-
-
-            $results[] = new Atributo(null,null,null);
-
-        } 
-    }
+    
 }
