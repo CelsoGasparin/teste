@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Configuração do sistema
 define('APP_NAME', 'DevStudio');
-define('URL_BASE', 'http://localhost:8080');
+define('URL_BASE', 'http://localhost:8081');
 
 define('URL_BASE_CSS', URL_BASE . '/assets/css');
 
@@ -29,4 +29,4 @@ define('DB_HOST', '127.0.0.1:3306');
 define('DB_NAME', 'mvc_creator');
 
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'bancodedados');

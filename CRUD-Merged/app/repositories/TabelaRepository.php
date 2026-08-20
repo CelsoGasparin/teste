@@ -2,6 +2,7 @@
 namespace app\repositories;
 
 use app\database\ConnectionFactory;
+use app\models\Tabela;
 use PDO;
 use ValueError;
 
@@ -26,7 +27,8 @@ class TabelaRepository{
         $sql = "SELECT tabela.* FROM tabela WHERE tabela.fk_banco = ?";
         $stm = $this->conn->prepare($sql);
         $stm->execute([$id_banco]);
-        return $stm->fetchAll(PDO::FETCH_NUM);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapTabela($result);
     }
 
     public function getTabelaEspecifica($nome_tabela,$fk_banco){
@@ -47,13 +49,30 @@ class TabelaRepository{
         $sql = "SELECT tabela.* FROM tabela;";
         $stm = $this->conn->prepare($sql);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_NUM);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapTabela($result);
     }
 
     public function getTabela($value,$param){
         $sql = "SELECT * from tabela where ? = $param";       
         $stm = $this->conn->prepare($sql);
         $stm->execute([$value]);
-        return $stm->fetchAll(PDO::FETCH_NUM); 
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapTabela($result);
+    }
+
+
+    private function mapTabela($tabelas){
+        $result = [];
+
+        foreach($tabelas as $key => $tabela){
+            $id_tabela = $tabela['id_tabela'];
+            $fk_banco = $tabela['fk_banco'];
+            $nome_tabela = $tabela['nome_tabela'];
+
+            $result[] = new Tabela($id_tabela,$fk_banco,$nome_tabela);
+        }
+
+        return $result;
     }
 }

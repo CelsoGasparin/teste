@@ -25,7 +25,8 @@ class AtributoRepository{
         $sql = "SELECT atributo.* FROM atributo WHERE atributo.fk_tabela = ?;";
         $stm = $this->conn->prepare($sql);
         $stm->execute([$id_tabela]);
-        return $stm->fetchAll(PDO::FETCH_NUM);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapAtributo($result);
     }
 
     public function getAtributo($value,$param){
@@ -39,7 +40,8 @@ class AtributoRepository{
         $sql = "SELECT * from atributo";       
         $stm = $this->conn->prepare($sql);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_NUM); 
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $this->mapAtributo($result); 
     }
 
     public function getAtributoById($id){
@@ -50,8 +52,31 @@ class AtributoRepository{
     }
 
 
-     
     
+    private function mapAtributo($atributos){
+        $result = [];
+        // print_r($atributos);
+        foreach($atributos as $key => $atributo){
+            
+                
+            $id_atributo = $atributo['id_atributo'];
+            $fk_tabela = $atributo['fk_tabela'];
+            $fk_atributo = $atributo['fk_atributo'];
+            $nome_atributo = $atributo['nome_atributo'];
+            $tipo = $atributo['tipo'];
+            $pk = $atributo['PK'];
+            $nn = $atributo['NN'];
+            $ai = $atributo['AI'];
+            $uq = $atributo['UQ'];
+        
+        
+            $result[] = new Atributo($id_atributo,$fk_tabela,$fk_atributo,$nome_atributo,$tipo,$pk,$nn,$ai,$uq);
+            
+        }
+
+        return $result;
+        
+    }
 
     
 }

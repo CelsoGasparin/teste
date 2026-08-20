@@ -35,9 +35,9 @@ class ProjetoController extends Controller{
     public function teste(){
         $host = '127.0.0.1:3306';
         $hostEporta = explode(':',$host);
-        $nome_banco = 'db_projeto_integrador';
+        $nome_banco = 'mvc_creator';
         $usuario_banco = 'root';
-        $senha_banco = '';
+        $senha_banco = 'bancodedados';
         $fk_usuario = $_SESSION['usuario_logado']->getIdUsuario();
         
         // SchemaInspector com o Banco Selecionado
@@ -63,8 +63,11 @@ class ProjetoController extends Controller{
                 $atributoService->insert($tabelaEspecifica['id_tabela'],null,$att['Field'],$att['Type'],$pk,$nn,0,0);
             }
         }
-        // print_r($tabelaService->getAllTabelas());
-        // print_r($tabelaService->getTabelasByFk_banco(3));
+        print_r($tabelaService->getAllTabelas());
+        // print_r($atributoService->getAtributoById(1));
+        // print_r($atributoService->getAllAtributos());
+        // print_r($atributoService->getAtributosByFk_tabela(2));
+        // print_r($tabelaService->getTabelasByFk_banco(5));
     }
 
     public function cadastrar(): void {

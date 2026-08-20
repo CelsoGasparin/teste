@@ -5,6 +5,8 @@ use app\repositories\ProjetoRepository;
 use Throwable;
 
 class Tabela{
+    public readonly ?int $id_tabela;
+    public readonly ?int $fk_banco;
     public readonly string $nome_tabela;
     public readonly string $nome_tabelaUC;
     public readonly ?array $atributos;
@@ -12,9 +14,11 @@ class Tabela{
 
 
 
-    public function __construct($nomeTabela){
+    public function __construct($id_tabela,$fk_banco,$nomeTabela){
         try{
             $projetoRepository = new ProjetoRepository();
+            $this->id_tabela = $id_tabela;
+            $this->fk_banco = $fk_banco;
             $this->nome_tabela = $nomeTabela;
             $this->nome_tabelaUC = ucfirst($this->nome_tabela);
             $atributos = $projetoRepository->getAtributos($this->nome_tabela);
